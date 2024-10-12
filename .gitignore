@@ -1,3 +1,6 @@
 EXP/*
 .vscode/*
-
+*.pyc
+imgs/*
+*.jpg
+__pycache__
