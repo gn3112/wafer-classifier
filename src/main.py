@@ -53,7 +53,7 @@ if __name__ == "__main__":
     print("Total Dataset Class balance: {}".format(dataset_occurence(classes_name, labels, "PERC"))) # add param in utils to choose for count or proportion
     
     # Save image sample of each class
-    sample_images_dataset(classes_name, labels, images, "/Users/georgesnomicos/Documents/Projects/wafer_classifier/sample_classes.jpg")
+    sample_images_dataset(classes_name, labels, images, "sample_classes.jpg")
 
     # Dataset split
     # TODO: utils method to create datasets or use sklearn k-fold module
