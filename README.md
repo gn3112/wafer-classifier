@@ -20,6 +20,11 @@ The classifier is trained on waferImg26x26 which consists of:
 - **Classes**: ['Center', 'Donut', 'Edge-Loc', 'Edge-Ring', 'Loc', 'Near-full', 'Random', 'Scratch', 'none']
 - **Source**: https://drive.google.com/file/d/1DBkX1saFrurCQDeZhdngA_qbY8QqmGRN/view?usp=sharing
 
+### Occurences of classes
+<p align="center">
+  <img src="classes_occurences.jpg" width="600">
+</p>
+
 ## Solution
 
 ### Model architecture
@@ -37,10 +42,27 @@ The approach utilizes a deep learning model trained in PyTorch to classify wafer
         self.softmax = nn.LogSoftmax(dim=1)
 
 ### Data preparation
+  1. Spliting the dataset in three sub sets: training, validation and test.
+  2. Make sure 'Donut' class in included in dataset since it has a very low occurence.
+  3. Create custom dataset inheriting the Dataset class of PyTorch.
+  4. Use a weighted sampler for training data to avoid bias towards class with higher occurences.
+  5. Perform Normalization on input data.
+  6. Perform augmentation transform for all classes except the 'none' class (which represents over 90% of the dataset).
 
 ### Training parameters
 
+| Type | Value |
+| -------- | -------- |
+| Optimizer   | Adam |
+| Loss criteria  | Negative log likelihood |
+| Batch size  | 64 |
+| Learning rate  | 0.001 |
+| Epochs  | 12 |
+| Seed  | 40 |
+
 ### Optimization model and hyperparameters with tensorboard
+
+TODO: Add explanation for tensorboard.
 
 ## Results
 
@@ -48,16 +70,16 @@ The model achieves the following performance metrics:
 
 | Metric | Value |
 |--------|-------|
-| Accuracy | X% |
-| Precision | X% |
-| Recall | X% |
-| F1-Score | X |
+| Accuracy validation | 98.6% |
+| Accuracy test | 99.0% |
+
+TODO: Add other metrics.
 
 ## How to Run the Code
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/your-repo-name.git
+   git clone https://github.com/gn3112/wafer-classifier.git
    ```
 
 2. Install dependencies:
