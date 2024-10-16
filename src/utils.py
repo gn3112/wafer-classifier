@@ -3,6 +3,7 @@ import torch
 from PIL import Image
 from torchvision.transforms import ToTensor
 from torchvision.utils import save_image
+import plotly.graph_objects as go
 
 def numpy_to_tensor_img(img):
     img = (255.0 * np.transpose(img, (2,1,0))).astype(np.uint8)
@@ -63,3 +64,22 @@ def sample_images_dataset(classes_name, labels, images, path):
     
     del tensor_imgs
 
+def bar_chart_class_occurence(data):
+    # Prepare data for plotting
+    labels = list(data.keys())
+    values = list(data.values())
+
+    # Create a bar graph
+    fig = go.Figure(data=[go.Bar(x=labels, y=values)])
+
+    # Update layout
+    fig.update_layout(
+        title='Occurrences by Category',
+        xaxis_title='Category',
+        yaxis_title='Occurrences (Log Scale)',
+        yaxis_type='log',  # Set the y-axis to logarithmic scale
+        showlegend=False
+    ) 
+
+    # Show the figure
+    fig.write_image('classes_occurences.jpg')

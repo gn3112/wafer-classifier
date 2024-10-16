@@ -31,15 +31,15 @@ class_to_idx = class_to_idx(classes_name)
 idx_to_class = idx_to_class(classes_name)
 
 indices = list(range(len(images)))
-test_indices = indices[112:168]
+test_indices = indices[1436:2154]
 
-T = Compose([Normalize(torch.tensor([0.2118, 0.5966, 0.1916]) , torch.tensor([0.4086, 0.4906, 0.3936]))])
+T = Compose([Normalize(torch.tensor([0.2116, 0.6594, 0.1290]) , torch.tensor([0.4084, 0.4739, 0.3352]))])
 tensor_dataset_test = to_tensor_dataset_format(test_indices, images, labels, class_to_idx)
 test_data = CustomTensorDataset(tensor_dataset_test, transform=T)
 test_loader = DataLoader(test_data, batch_size=12)
 
 net = WaferNet().to(device)
-net.load_state_dict(torch.load('EXP/Final_model_benchmark_60_ep/model.pt', weights_only=True))
+net.load_state_dict(torch.load('EXP/full_dataset_with_transformation_for_low_occurence_classes/model.pt', weights_only=True))
 net.eval()
 
 for inputs, labels in test_loader:

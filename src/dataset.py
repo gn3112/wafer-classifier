@@ -16,7 +16,7 @@ class CustomTensorDataset(Dataset):
 
         y = self.tensors[1][index]
 
-        if self.transform_augm and y.item() in [0,1,4,6,7,8]:
+        if self.transform_augm and y.item() != 8:
             x = self.transform_augm(x)
         elif self.transform: 
             x = self.transform(x)

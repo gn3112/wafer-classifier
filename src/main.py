@@ -45,13 +45,13 @@ if __name__ == "__main__":
 
     # Remove portion of none class, keep 250 samples. Due to none class being 94% of the dataset.
     # TODO: better to keep all data and focus on transforming classes with not enough data
-    idx_to_remove = np.random.choice(np.where(labels == "none")[0], 13489-250, replace=False)
-    images = np.delete(images, idx_to_remove)
-    labels = np.delete(labels, idx_to_remove)
+    # idx_to_remove = np.random.choice(np.where(labels == "none")[0], 13489-250, replace=False)
+    # images = np.delete(images, idx_to_remove)
+    # labels = np.delete(labels, idx_to_remove)
     
     # Class balance and sample of each
     print("Total Dataset Class balance: {}".format(dataset_occurence(classes_name, labels, "PERC"))) # add param in utils to choose for count or proportion
-    
+
     # Save image sample of each class
     sample_images_dataset(classes_name, labels, images, "sample_classes.jpg")
 
@@ -76,8 +76,10 @@ if __name__ == "__main__":
     tensor_dataset_training = to_tensor_dataset_format(train_indices, images, labels, class_to_idx)
     tensor_dataset_valid = to_tensor_dataset_format(valid_indices, images, labels, class_to_idx)
 
+    bar_chart_class_occurence(dataset_occurence(classes_name, labels, "OCC"))
+
     # Proportion of each class in train
-    train_class_occ = dataset_occurence(list(class_to_idx.values()), tensor_dataset_training[1], mode="PERC")
+    train_class_occ = dataset_occurence(list(class_to_idx.values()), tensor_dataset_training[1], mode="OCC")
     print("Training Class balance: {}".format(train_class_occ))
 
     # Train weighted dataset class sampling and dataloaders
